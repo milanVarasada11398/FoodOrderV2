@@ -110,6 +110,16 @@ extension RestaurantsController:UICollectionViewDelegate,UICollectionViewDataSou
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let Id = RestDetails[indexPath.row].UID
+        let restName = RestDetails[indexPath.row].RestName
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "RestaurantDetailsController") as! RestaurantDetailsController
+        nextViewController.RestUID = Id
+        nextViewController.restaurantName = restName
+   navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    
     
     
 }

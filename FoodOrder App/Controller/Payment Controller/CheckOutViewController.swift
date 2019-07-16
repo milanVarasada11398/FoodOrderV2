@@ -13,6 +13,8 @@ import FirebaseAuth
 
 
 class CheckOutViewController: UIViewController,UITextFieldDelegate,PayPalPaymentDelegate {
+  
+    
     
     let lightGreyColor = UIColor(red: 197/255, green: 205/255, blue: 205/255, alpha: 1.0)
     let darkGreyColor = UIColor(red: 52/255, green: 42/255, blue: 61/255, alpha: 1.0)
@@ -101,7 +103,8 @@ class CheckOutViewController: UIViewController,UITextFieldDelegate,PayPalPayment
         paypalconfig.payPalShippingAddressOption = .payPal;
         
         PayPalMobile.preconnect(withEnvironment: environment)
-       
+        
+        
     }
     
     @objc func textFieldDidChangeforEmail(_ textfield: UITextField)
@@ -165,6 +168,7 @@ class CheckOutViewController: UIViewController,UITextFieldDelegate,PayPalPayment
     func payPalPaymentViewController(_ paymentViewController: PayPalPaymentViewController, didComplete completedPayment: PayPalPayment) {
         
         print("PayPal Payment Success !")
+        Alertview.instance.delegate = self
            Alertview.instance.showAlert(title: "Your Order is Sucessfully.", message: "You can track the Delivery in the \"Orders\" Sction.", alertType: .Sucess)
 //        paymentViewController.dismiss(animated: true, completion: { () -> Void in
 //            // send completed confirmaion to your server
@@ -227,5 +231,15 @@ class CheckOutViewController: UIViewController,UITextFieldDelegate,PayPalPayment
     }
     
 
+    
+}
+
+extension CheckOutViewController : clickOnButton
+{
+    func clickContinueShoppingButton() {
+      navigationController?.popToRootViewController(animated: true)
+         Alertview.instance.parentView.removeFromSuperview()
+    }
+    
     
 }

@@ -39,7 +39,7 @@ extension CuisineCell : UICollectionViewDelegate,UICollectionViewDataSource
        {
         cell.cuisineLabel.text = cuisineArray[indexPath.row]
         cell.cuisineLabel.layer.borderWidth = 2
-        cell.cuisineLabel.layer.borderColor = UIColor.lightGray.cgColor
+        cell.cuisineLabel.layer.borderColor = UIColor(displayP3Red: 199.0/255.0, green: 202.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
         cell.cuisineLabel.layer.cornerRadius = 15
         cell.cuisineLabel.layer.masksToBounds = true
         return cell
@@ -53,6 +53,23 @@ extension CuisineCell : UICollectionViewDelegate,UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(cuisineArray[indexPath.row])
+        collectionView.deselectItem(at: indexPath, animated: false)
+        let cell = collectionView.cellForItem(at: indexPath) as! CuisineCollectionViewCell
+        
+        if  cell.cuisineLabel.layer.borderColor == UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0).cgColor
+        {
+             cell.cuisineLabel.layer.borderColor = UIColor(displayP3Red: 199.0/255.0, green: 202.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
+            cell.cuisineLabel.textColor = UIColor(displayP3Red: 199.0/255.0, green: 202.0/255.0, blue: 209.0/255.0, alpha: 1.0)
+        }
+        else
+        {
+             cell.cuisineLabel.layer.borderColor = UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0).cgColor
+             cell.cuisineLabel.textColor = UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0)
+        }
     }
     
     

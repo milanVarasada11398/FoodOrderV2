@@ -36,6 +36,7 @@ class RestaurantDetailsController: UIViewController {
     var RestUID:Int = 0
     var rs:Double = 0.0
     var restaurantName = ""
+    var doublestr  = ""
     var totalOrderPrice:String?
     
     //addButton for order
@@ -66,7 +67,12 @@ class RestaurantDetailsController: UIViewController {
   
     //Mark :- back button
     @IBAction func backButton(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        for controller in self.navigationController!.viewControllers as Array {
+            if controller.isKind(of: HomeViewController.self) {
+                self.navigationController!.popToViewController(controller, animated: true)
+                break
+            }
+        }
     }
     
     //Mark :- add order button
@@ -105,6 +111,20 @@ extension RestaurantDetailsController:UICollectionViewDelegate,UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         return cell
         }
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let image = FeaturedItems[indexPath.row].FeaturedItemImage
+        let name = FeaturedItems[indexPath.row].FeaturedItemName
+        let price = FeaturedItems[indexPath.row].FeaturedItemPrice
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "FeaturedItemDisplay") as! FeaturedItemDisplay
+       print(image)
+        print(name)
+        print(price)
+        nextViewController.name = name
+        nextViewController.price = price
+        nextViewController.image = image
+        navigationController?.pushViewController(nextViewController, animated: true)
     }
 }
 
@@ -211,9 +231,9 @@ extension RestaurantDetailsController:PassPrice
    
     func pass(price: Double) {
         rs = rs + price
-        let doubleStr = String(format: "%.2f", rs)
-          totalOrderPrice = doubleStr
-        orderLabel.text = "$ \(doubleStr)"
+         doublestr = String(format: "%.2f", rs)
+          totalOrderPrice = doublestr
+        orderLabel.text = "$ \(doublestr)"
     }
     
     
@@ -222,9 +242,9 @@ extension RestaurantDetailsController:deleteprice
 {
     func delete(price: Double) {
         rs = rs - price
-        let doubleStr = String(format: "%.2f", rs)
-        totalOrderPrice = doubleStr
-         orderLabel.text = "$ \(doubleStr)"
+        doublestr = String(format: "%.2f", rs)
+        totalOrderPrice = doublestr
+         orderLabel.text = "$ \(doublestr)"
     }
     
     
@@ -271,7 +291,7 @@ extension RestaurantDetailsController
         tableview.delegate = self
         tableview.dataSource = self
         
-        PopularItems = [PopularItem(PopularItemName:  ["Special Palaw","Lemon Spagg"], PopularItemPrice: ["9.88","10.11"], opened: false, title: "Popular Items"),PopularItem(PopularItemName:  ["Chicken 1","Chiken 2"], PopularItemPrice: ["15.00","17.88"], opened: false, title: "Chikens")]
+        PopularItems = [PopularItem(PopularItemName:  ["Special Palaw","Lemon Spagg","Veg Paneer"], PopularItemPrice: ["5.00","5.00","5.00"], opened: false, title: "Popular Items"),PopularItem(PopularItemName:  ["Chicken 1","Chiken 2","Chiken 3"], PopularItemPrice: ["10.00","10.00","10.00"], opened: false, title: "Chikens")]
         
         readData()
     }

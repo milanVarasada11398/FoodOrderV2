@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol clickOnButton {
+   func clickContinueShoppingButton()
+}
+
 class Alertview : UIView
 {
     static let instance = Alertview()
@@ -21,7 +25,7 @@ class Alertview : UIView
     @IBOutlet var titleofAlert: UILabel!
     @IBOutlet var messageOfAlert: UILabel!
     
-    
+    var delegate:clickOnButton?
     let Pinkcolor = UIColor(red: 221/255, green: 55/255, blue: 91/255, alpha: 1.0)
 
     override init(frame: CGRect) {
@@ -37,7 +41,7 @@ class Alertview : UIView
     
     private func commanInitialization()
     {
-        subView.layer.cornerRadius = 10
+        subView.layer.cornerRadius = 20
         doneButton.layer.cornerRadius = 10
      
    
@@ -80,7 +84,10 @@ class Alertview : UIView
     
     
     @IBAction func buttonOfAction(_ sender: Any) {
-        parentView.removeFromSuperview()
+       
+      
+            delegate?.clickContinueShoppingButton()
+        
     }
   
 }

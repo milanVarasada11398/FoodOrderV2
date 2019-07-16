@@ -128,6 +128,7 @@ open class BottomController: UIViewController,UIGestureRecognizerDelegate {
     }
     private func configure(){
         view.addSubview(backgroundOverlay)
+        
         self.modalPresentationStyle = .overCurrentContext
         self.hidesBottomBarWhenPushed = true
         guard let controller = self.destinationController, let controllerView = controller.view else {return}

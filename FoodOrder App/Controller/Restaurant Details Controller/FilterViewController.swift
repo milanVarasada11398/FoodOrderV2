@@ -9,20 +9,39 @@
 import UIKit
 import BottomDrawer
 import SwiftRangeSlider
+import Bottomsheet
 
-class FilterViewController: BottomController {
+class FilterViewController: UIViewController {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var tableview: UITableView!
     let SortByArray = ["Top Rated","Nearest Me","Cost High to Low","Cost Low to High"]
     let FilterArray = ["Open Now","Credit Cards","Free Delivery"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        // Do any additional setup after loading the view.
+        
+       let controller = Bottomsheet.Controller()
+        controller.addTableView { [weak self] tableview in
+            // tableView
+        }
     }
     
-
+    @IBAction func resetButton(_ sender: Any) {
+    }
+    
+    @IBAction func doneButton(_ sender: Any) {
+      
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "RestaurantsController") as! RestaurantsController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        
+        }
+      
+    
+    
 }
+
 
 extension FilterViewController : UITableViewDelegate,UITableViewDataSource
 {
@@ -61,12 +80,14 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "sortCell", for: indexPath) as! OtherFilerCell
             cell.NameLabel.text = SortByArray[indexPath.row]
+              cell.tintColor = UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0)
             return cell
         }
         else if indexPath.section == 2
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "sortCell", for: indexPath) as! OtherFilerCell
             cell.NameLabel.text = FilterArray[indexPath.row]
+            cell.tintColor = UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0)
             return cell
         }
         else
@@ -114,15 +135,25 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
     }   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! OtherFilerCell
         
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark
         {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
+            cell.NameLabel.textColor =  UIColor(displayP3Red: 38.0/255.0, green: 49.0/255.0, blue: 95.0/255.0, alpha: 1.0)
         }
+            
         else
         {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            cell.NameLabel.textColor =  UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0)
         }
+       
+        if indexPath.section == 3
+        {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        }
+        tableview.deselectRow(at: indexPath, animated: true)
     }
  
 }

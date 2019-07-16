@@ -37,12 +37,12 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
          navigationController?.setNavigationBarHidden(true, animated: animated)
-//        if(Auth.auth().currentUser?.uid != nil)
-//        {
-//            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-//            navigationController?.pushViewController(nextViewController, animated: true)
-//        }
+        if(Auth.auth().currentUser?.uid != nil)
+        {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+            navigationController?.pushViewController(nextViewController, animated: true)
+        }
     }
     
     //userLogin Button
@@ -61,6 +61,9 @@ class ViewController: UIViewController {
             if error != nil {
                 print(error as Any)
                 print(strongSelf)
+                let alert = UIAlertController(title: "Sign In", message: "Please Enter Correct Email or Password.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self!.present(alert, animated: true, completion: nil)
                 
             } else {
                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -72,6 +75,9 @@ class ViewController: UIViewController {
     
     //forgot Password Button
     @IBAction func forgotPassword(_ sender: Any) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "ForgotPasswordController") as! ForgotPasswordController
+        navigationController?.pushViewController(nextViewController, animated: true)
     }
     
     //signUp User
@@ -137,8 +143,8 @@ extension ViewController
         bottomView.layer.cornerRadius = 16
         emailText.layer.masksToBounds = true
         passwordText.layer.masksToBounds = true
-        emailText.layer.cornerRadius = 20
-        passwordText.layer.cornerRadius = 20
+        emailText.layer.cornerRadius = 24
+        passwordText.layer.cornerRadius = 24
         emailText.layer.borderWidth = 2
         passwordText.layer.borderWidth = 2
         emailText.layer.borderColor = UIColor.clear.cgColor
