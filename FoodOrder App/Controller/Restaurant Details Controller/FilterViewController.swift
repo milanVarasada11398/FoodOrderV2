@@ -16,8 +16,8 @@ class FilterViewController: UIViewController {
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var tableview: UITableView!
     let SortByArray = ["Top Rated","Nearest Me","Cost High to Low","Cost Low to High"]
-    let FilterArray = ["Open Now","Credit Cards","Free Delivery"]
-    
+    let FilterArray = ["Open Now","Credit Cards","Free delivery"]
+    var filterarray : [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,8 +38,8 @@ class FilterViewController: UIViewController {
         
         }
       
-    
-    
+
+ 
 }
 
 
@@ -137,23 +137,31 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! OtherFilerCell
         
+        
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark
         {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
             cell.NameLabel.textColor =  UIColor(displayP3Red: 38.0/255.0, green: 49.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+            filterarray.removeAll { $0 == "\(cell.NameLabel.text!)"}
+            print(filterarray)
         }
             
         else
         {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             cell.NameLabel.textColor =  UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0)
+            filterarray.append(cell.NameLabel.text!)
+            print(filterarray)
         }
        
         if indexPath.section == 3
         {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
         }
-        tableview.deselectRow(at: indexPath, animated: true)
+        
+   tableview.deselectRow(at: indexPath, animated: true)
     }
  
+   
 }
+

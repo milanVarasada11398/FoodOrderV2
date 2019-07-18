@@ -17,6 +17,8 @@ class VerifyPhNoController: UIViewController {
     @IBOutlet var PhoneNumberTextField: FPNTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         self.navigationController?.navigationBar.isHidden = true
         PhoneNumberTextField.layer.masksToBounds = true
         PhoneNumberTextField.layer.cornerRadius = 20

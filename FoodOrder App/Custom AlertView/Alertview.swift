@@ -85,7 +85,7 @@ class Alertview : UIView
     
     @IBAction func buttonOfAction(_ sender: Any) {
        
-      
+        
             delegate?.clickContinueShoppingButton()
         
     }

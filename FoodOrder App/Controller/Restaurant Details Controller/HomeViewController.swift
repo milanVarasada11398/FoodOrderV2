@@ -81,6 +81,8 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        if collectionView == collectionView
+        {
         let Id = RestDetails[indexPath.row].UID
         let restName = RestDetails[indexPath.row].RestName
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -90,6 +92,7 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
         print(nextViewController.restaurantName)
         print(nextViewController.RestUID)
         navigationController?.pushViewController(nextViewController, animated: true)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

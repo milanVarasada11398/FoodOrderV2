@@ -323,7 +323,7 @@ extension RestaurantDetailsController
                             self.FeaturedItems.append(new)
                             
                             self.collectionView.reloadData()
-                            
+             
                         }
                     }
                 }

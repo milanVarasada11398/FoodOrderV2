@@ -12,6 +12,7 @@ class CuisineCell: UITableViewCell {
 
     @IBOutlet weak var collectionview: UICollectionView!
     var cuisineArray = ["American","Turkish","Asia","Fastfood","Pizza","Maxican"]
+    var filterCuisine : [String] = []
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -64,11 +65,16 @@ extension CuisineCell : UICollectionViewDelegate,UICollectionViewDataSource
         {
              cell.cuisineLabel.layer.borderColor = UIColor(displayP3Red: 199.0/255.0, green: 202.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
             cell.cuisineLabel.textColor = UIColor(displayP3Red: 199.0/255.0, green: 202.0/255.0, blue: 209.0/255.0, alpha: 1.0)
+            filterCuisine.removeAll { $0 == "\(cell.cuisineLabel.text!)"}
+            print(filterCuisine)
+           
         }
         else
         {
              cell.cuisineLabel.layer.borderColor = UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0).cgColor
              cell.cuisineLabel.textColor = UIColor(displayP3Red: 221.0/255.0, green: 55.0/255.0, blue: 91.0/255.0, alpha: 1.0)
+            filterCuisine.append(cell.cuisineLabel.text!)
+            print(filterCuisine)
         }
     }
     
