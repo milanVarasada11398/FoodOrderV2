@@ -56,6 +56,9 @@ class SocialSigninController: UIViewController {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if error != nil {
                 print(error as Any)
+                let alert = UIAlertController(title: "Sign Up", message: "Please enter the Valid Email & password", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             } else {
                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier: "login") as! ViewController

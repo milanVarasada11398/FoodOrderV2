@@ -492,7 +492,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1EL-Ox-qbo">
-                                        <rect key="frame" x="-35" y="104" width="386" height="65"/>
+                                        <rect key="frame" x="5" y="104" width="346" height="65"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="03d-Tb-lF1"/>
@@ -505,7 +505,7 @@
                                     <constraint firstItem="jWc-cJ-5g7" firstAttribute="top" secondItem="THK-sK-Ig3" secondAttribute="top" id="8Yy-cY-ahB"/>
                                     <constraint firstAttribute="trailing" secondItem="1EL-Ox-qbo" secondAttribute="trailing" constant="5" id="BCR-lS-IPT"/>
                                     <constraint firstItem="jWc-cJ-5g7" firstAttribute="width" relation="greaterThanOrEqual" secondItem="THK-sK-Ig3" secondAttribute="width" multiplier="0.9" id="KgJ-to-gQP"/>
-                                    <constraint firstItem="1EL-Ox-qbo" firstAttribute="leading" secondItem="THK-sK-Ig3" secondAttribute="leading" constant="-35" id="g97-xi-LDM"/>
+                                    <constraint firstItem="1EL-Ox-qbo" firstAttribute="leading" secondItem="THK-sK-Ig3" secondAttribute="leading" constant="5" id="g97-xi-LDM"/>
                                     <constraint firstItem="jWc-cJ-5g7" firstAttribute="height" secondItem="THK-sK-Ig3" secondAttribute="height" multiplier="0.16" id="kfZ-kw-WQ3"/>
                                     <constraint firstItem="jWc-cJ-5g7" firstAttribute="centerX" secondItem="THK-sK-Ig3" secondAttribute="centerX" id="lCL-Em-L5T"/>
                                     <constraint firstItem="Ipa-O6-TAX" firstAttribute="centerX" secondItem="THK-sK-Ig3" secondAttribute="centerX" id="n7T-pf-kf2"/>
@@ -924,7 +924,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z9v-cw-eRO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4962.3999999999996" y="1330.8845577211396"/>
+            <point key="canvasLocation" x="4943" y="1330"/>
         </scene>
         <!--Restaurants Controller-->
         <scene sceneID="iPl-EA-baZ">

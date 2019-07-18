@@ -18,6 +18,7 @@ class FilterViewController: UIViewController {
     let SortByArray = ["Top Rated","Nearest Me","Cost High to Low","Cost Low to High"]
     let FilterArray = ["Open Now","Credit Cards","Free delivery"]
     var filterarray : [String] = []
+    var filterCuisine : [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,21 +29,66 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func resetButton(_ sender: Any) {
+      
+        filterarray = []
+        filterCuisine = []
+            for section in 1..<self.tableview.numberOfSections - 1{
+                for row in 0..<self.tableview.numberOfRows(inSection: section){
+                    if let cell = self.tableview.cellForRow(at: IndexPath(row: row, section: section)) as? OtherFilerCell
+                   {
+                    cell.accessoryType = .none
+                    cell.NameLabel.textColor = UIColor(displayP3Red: 38.0/255.0, green: 49.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+                    }
+                }
+            }
+        for section in 0..<self.tableview.numberOfSections{
+            for row in 0..<self.tableview.numberOfRows(inSection: section){
+                if let cell = self.tableview.cellForRow(at: IndexPath(row: row, section: section)) as? CuisineCell
+                {
+                    for section in 0..<cell.collectionview.numberOfSections{
+                        for row in 0..<cell.collectionview.numberOfItems(inSection: section){
+                            if let cell1 = cell.collectionview.cellForItem(at: IndexPath(row: row, section: section)) as? CuisineCollectionViewCell
+                            {
+                                cell1.cuisineLabel.layer.borderColor = UIColor(displayP3Red: 199.0/255.0, green: 202.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
+                                cell1.cuisineLabel.textColor = UIColor(displayP3Red: 199.0/255.0, green: 202.0/255.0, blue: 209.0/255.0, alpha: 1.0)
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+        
     }
     
     @IBAction func doneButton(_ sender: Any) {
-      
+        
+        if filterarray.count == 0 && filterCuisine.count == 0
+        {
+            Alertview.instance.delegate = self
+            Alertview.instance.showAlert(title: "Restaurant Not Found.", message: "You can filter again for best restaurants.", alertType: .Failure)
+        }
+        else
+        {
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             let nextViewController = storyBoard.instantiateViewController(withIdentifier: "RestaurantsController") as! RestaurantsController
+            nextViewController.filters = filterarray
+            nextViewController.filterCuisine = filterCuisine
+              print(nextViewController.filters)
+            print(nextViewController.filterCuisine)
             self.navigationController?.pushViewController(nextViewController, animated: true)
-        
+    
         }
-      
+    }
 
  
 }
-
-
+extension FilterViewController : clickOnButton
+{
+    func clickContinueShoppingButton() {
+         Alertview.instance.parentView.removeFromSuperview()
+    }
+}
 extension FilterViewController : UITableViewDelegate,UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,7 +119,7 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         if indexPath.section == 0
         {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CuisineCell
-        
+            cell.delegate = self
         return cell
         }
         else if indexPath.section == 1
@@ -93,7 +139,7 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         else
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "priceCell", for: indexPath) as! PriceFilterCell
-        
+            
             return cell
         }
     }
@@ -164,4 +210,11 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
  
    
 }
-
+extension FilterViewController : PassFilterArray
+{
+    func PassCuisine(cuisine: [String]) {
+        filterCuisine = cuisine
+    }
+    
+    
+}

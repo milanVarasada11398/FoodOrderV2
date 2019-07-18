@@ -291,7 +291,7 @@ extension RestaurantDetailsController
         tableview.delegate = self
         tableview.dataSource = self
         
-        PopularItems = [PopularItem(PopularItemName:  ["Special Palaw","Lemon Spagg","Veg Paneer"], PopularItemPrice: ["5.00","5.00","5.00"], opened: false, title: "Popular Items"),PopularItem(PopularItemName:  ["Chicken 1","Chiken 2","Chiken 3"], PopularItemPrice: ["10.00","10.00","10.00"], opened: false, title: "Chikens")]
+        PopularItems = [PopularItem(PopularItemName:  ["Special Palaw","Lemon Spagg"], PopularItemPrice: ["5.00","5.00"], opened: false, title: "Popular Items"),PopularItem(PopularItemName:  ["Chicken 1","Chiken 2"], PopularItemPrice: ["10.00","10.00"], opened: false, title: "Chikens")]
         
         readData()
     }

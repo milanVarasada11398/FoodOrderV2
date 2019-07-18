@@ -37,7 +37,7 @@ class PhNoVerificationController: UIViewController,ABOtpViewDelegate {
                 if ((error) != nil) {
                     // Handles error
                     print("error in otp : \(String(describing: error?.localizedDescription))")
-                    
+                    Alertview.instance.showAlert(title: "Wrong OTP", message: "Please Enter Correct OTP for \(self.phoneString)", alertType: .Failure)
                     return
                 }
                 

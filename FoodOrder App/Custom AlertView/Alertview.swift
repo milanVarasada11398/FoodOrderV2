@@ -71,9 +71,9 @@ class Alertview : UIView
             iconImage.image = UIImage(named: "alertCheckmark")
              doneButton.backgroundColor = Pinkcolor
         case .Failure:
-            titleofAlert.textColor = UIColor.red
-            iconImage.image = UIImage(named: "wrong")
-            doneButton.backgroundColor = UIColor.red
+            
+            iconImage.image = UIImage(named: "fail")
+            doneButton.backgroundColor = Pinkcolor
         case .Warning:
             titleofAlert.textColor = UIColor.orange
             doneButton.backgroundColor = UIColor.orange
@@ -87,7 +87,7 @@ class Alertview : UIView
        
         
             delegate?.clickContinueShoppingButton()
-        
+             Alertview.instance.parentView.removeFromSuperview()
     }
   
 }

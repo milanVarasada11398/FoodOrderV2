@@ -28,15 +28,42 @@ class RestaurantsController: UIViewController {
     
     //Model array
     var RestDetails:[Restaurant] = []
-    
+    var finalFilter:[Restaurant] = []
     //static array for image
     var imgArray = [UIImage(named: "firstSlideImage"),UIImage(named: "secondSlideImage"),UIImage(named: "thirdSlideImage")]
-    
+    var filters : [String] = []
+    var filterCuisine : [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
+        if filters.count > 0
+        {
+        collectionGroupQuery()
+        }
+       
+        if filterCuisine.count > 0
+        {
+        collectionGroupQueryCuisine()
+        }
+        
     }
 }
+extension RestaurantsController : clickOnButton
+{
+    func clickContinueShoppingButton() {
+        self.dismiss(animated: true, completion: nil)
+        for controller in self.navigationController!.viewControllers as Array {
+            if controller.isKind(of: FilterViewController.self) {
+                self.navigationController!.popToViewController(controller, animated: false)
+                break
+            }
+        }
+        Alertview.instance.parentView.removeFromSuperview()
+    }
+}
+    
+    
+
 
 extension RestaurantsController:UICollectionViewDelegate,UICollectionViewDataSource
 {
@@ -47,7 +74,12 @@ extension RestaurantsController:UICollectionViewDelegate,UICollectionViewDataSou
         }
         if collectionView == RestDisplayCollectionView
         {
-            return RestDetails.count
+            if finalFilter.count == 0
+            {
+                Alertview.instance.delegate = self
+                Alertview.instance.showAlert(title: "Restaurant Not Found.", message: "You can filter again for best restaurants.", alertType: .Failure)
+            }
+            return finalFilter.count
         }
         else
         {
@@ -111,6 +143,9 @@ extension RestaurantsController:UICollectionViewDelegate,UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if collectionView == RestDisplayCollectionView
+        {
         let Id = RestDetails[indexPath.row].UID
         let restName = RestDetails[indexPath.row].RestName
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -118,6 +153,7 @@ extension RestaurantsController:UICollectionViewDelegate,UICollectionViewDataSou
         nextViewController.RestUID = Id
         nextViewController.restaurantName = restName
    navigationController?.pushViewController(nextViewController, animated: true)
+        }
     }
     
     
@@ -204,7 +240,7 @@ extension RestaurantsController
         let nib = UINib(nibName: "RestarantDisplayCell", bundle: nil)
         RestDisplayCollectionView?.register(nib, forCellWithReuseIdentifier: "cell")
         
-        readData()
+        //readData()
     }
     
     @objc func changeImage()
@@ -225,6 +261,7 @@ extension RestaurantsController
         }
     }
 }
+
 
 extension RestaurantsController
 {
@@ -263,5 +300,122 @@ extension RestaurantsController
             }
         }
         
+    }
+}
+
+extension RestaurantsController
+{
+    private func collectionGroupQuery()
+    {
+       
+         RestDetails = []
+         let db = Firestore.firestore()
+       print(0..<filters.count)
+        
+        for  i in (0..<filters.count)
+        {
+            print(filters[i])
+            db.collection("RestaurantDetails").whereField("SortBy", isEqualTo: "\(filters[i])").getDocuments { (snapshot, error) in
+                // [START_EXCLUDE]
+                print(snapshot?.documents.count ?? 0)
+                // [END_EXCLUDE]
+                
+                for document in snapshot!.documents {
+                    
+                    let new = Restaurant()
+                    new.RestName = "\(document.data()["RestName"] as! String)"
+                    new.RestAddress = "\(document.data()["RestAddress"] as! String)"
+                    new.RestRating = "\(document.data()["RestRating"] as! String)"
+                    new.RestImageName = "\(document.documentID)"
+                    new.DeliveryType = "\(document.data()["RestDeliveryType"] as! String)"
+                    new.UID = Int("\(document.data()["RestUID"] as! String)")!
+                    let storageRef = Storage.storage().reference(withPath: "Images/\(document.documentID).png")
+                    storageRef.getData(maxSize: 4 * 1024 * 1024) { data, error in
+                        if let error = error {
+                            print("error downloading image:\(error)")
+                        } else {
+                            
+                            // Data for "images/island.jpg" is returned
+                            new.RestImage = UIImage(data: data!)
+                            
+                            self.RestDetails.append(new)
+                            print(self.RestDetails.count)
+                            self.finalFilter = self.RestDetails.removingDuplicates()
+                            
+                            print(self.finalFilter.count)
+                            self.RestDisplayCollectionView.reloadData()
+                            
+                        }
+                    }
+                }
+            }
+        }
+
+     
+      
+    }
+}
+
+
+extension RestaurantsController
+{
+    private func collectionGroupQueryCuisine()
+    {
+        let db = Firestore.firestore()
+        print(0..<filterCuisine.count)
+        
+        for  i in (0..<filterCuisine.count)
+        {
+         
+            db.collection("RestaurantDetails").whereField("Cuisines", isEqualTo: "\(filterCuisine[i])").getDocuments { (snapshot, error) in
+                // [START_EXCLUDE]
+                print(snapshot?.documents.count ?? 0)
+                // [END_EXCLUDE]
+                
+                for document in snapshot!.documents {
+                    
+                    let new = Restaurant()
+                    new.RestName = "\(document.data()["RestName"] as! String)"
+                    new.RestAddress = "\(document.data()["RestAddress"] as! String)"
+                    new.RestRating = "\(document.data()["RestRating"] as! String)"
+                    new.RestImageName = "\(document.documentID)"
+                    new.DeliveryType = "\(document.data()["RestDeliveryType"] as! String)"
+                    new.UID = Int("\(document.data()["RestUID"] as! String)")!
+                    let storageRef = Storage.storage().reference(withPath: "Images/\(document.documentID).png")
+                    storageRef.getData(maxSize: 4 * 1024 * 1024) { data, error in
+                        if let error = error {
+                            print("error downloading image:\(error)")
+                        } else {
+                            
+                            // Data for "images/island.jpg" is returned
+                            new.RestImage = UIImage(data: data!)
+                            
+                            self.RestDetails.append(new)
+                            print(self.RestDetails.count)
+                            self.finalFilter = self.RestDetails.removingDuplicates()
+                            
+                            print(self.finalFilter.count)
+                            
+                            self.RestDisplayCollectionView.reloadData()
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+}
+extension Array where Element: Hashable {
+    func removingDuplicates() -> [Element] {
+        var addedDict = [Element: Bool]()
+        
+        return filter {
+            addedDict.updateValue(true, forKey: $0) == nil
+        }
+    }
+    
+    mutating func removeDuplicates() {
+        self = self.removingDuplicates()
     }
 }

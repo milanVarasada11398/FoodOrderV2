@@ -11,7 +11,9 @@ import UIKit
 
 //Mark :- model for restaurant details
 
-class Restaurant {
+class Restaurant : Hashable  {
+   
+   
     var RestName : String = ""
     var RestAddress : String = ""
     var RestRating : String = ""
@@ -19,4 +21,13 @@ class Restaurant {
     var RestImageName:String = ""
     var DeliveryType:String = ""
     var UID:Int = 0
+    var hashValue: Int {
+        return self.UID
+    }
+    
+    static func == (lhs: Restaurant, rhs: Restaurant) -> Bool {
+        return lhs.UID == rhs.UID
+    }
+    
+   
 }

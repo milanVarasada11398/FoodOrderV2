@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol PassFilterArray {
+    func PassCuisine(cuisine:[String])
+}
+
 class CuisineCell: UITableViewCell {
 
+     static let instance = CuisineCell()
     @IBOutlet weak var collectionview: UICollectionView!
     var cuisineArray = ["American","Turkish","Asia","Fastfood","Pizza","Maxican"]
     var filterCuisine : [String] = []
+    var delegate:PassFilterArray?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -76,6 +82,7 @@ extension CuisineCell : UICollectionViewDelegate,UICollectionViewDataSource
             filterCuisine.append(cell.cuisineLabel.text!)
             print(filterCuisine)
         }
+        delegate?.PassCuisine(cuisine: filterCuisine)
     }
     
     
