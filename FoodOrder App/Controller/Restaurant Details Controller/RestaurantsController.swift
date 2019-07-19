@@ -74,11 +74,7 @@ extension RestaurantsController:UICollectionViewDelegate,UICollectionViewDataSou
         }
         if collectionView == RestDisplayCollectionView
         {
-            if finalFilter.count == 0
-            {
-                Alertview.instance.delegate = self
-                Alertview.instance.showAlert(title: "Restaurant Not Found.", message: "You can filter again for best restaurants.", alertType: .Failure)
-            }
+          
             return finalFilter.count
         }
         else
@@ -291,7 +287,6 @@ extension RestaurantsController
                             new.RestImage = UIImage(data: data!)
                             
                             self.RestDetails.append(new)
-                            
                             self.RestDisplayCollectionView.reloadData()
                             
                         }
@@ -318,7 +313,11 @@ extension RestaurantsController
             db.collection("RestaurantDetails").whereField("SortBy", isEqualTo: "\(filters[i])").getDocuments { (snapshot, error) in
                 // [START_EXCLUDE]
                 print(snapshot?.documents.count ?? 0)
-                // [END_EXCLUDE]
+                if snapshot?.documents.count == 0
+                {
+                    Alertview.instance.delegate = self
+                    Alertview.instance.showAlert(title: "Restaurant Not Found.", message: "You can filter again for best restaurants.", alertType: .Failure)
+                }
                 
                 for document in snapshot!.documents {
                     
@@ -370,7 +369,11 @@ extension RestaurantsController
             db.collection("RestaurantDetails").whereField("Cuisines", isEqualTo: "\(filterCuisine[i])").getDocuments { (snapshot, error) in
                 // [START_EXCLUDE]
                 print(snapshot?.documents.count ?? 0)
-                // [END_EXCLUDE]
+                if snapshot?.documents.count == 0
+                {
+                    Alertview.instance.delegate = self
+                    Alertview.instance.showAlert(title: "Restaurant Not Found.", message: "You can filter again for best restaurants.", alertType: .Failure)
+                }
                 
                 for document in snapshot!.documents {
                     
@@ -395,6 +398,7 @@ extension RestaurantsController
                             self.finalFilter = self.RestDetails.removingDuplicates()
                             
                             print(self.finalFilter.count)
+                           
                             
                             self.RestDisplayCollectionView.reloadData()
                             

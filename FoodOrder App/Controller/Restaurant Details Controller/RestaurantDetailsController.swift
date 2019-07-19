@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseStorage
 import FirebaseAuth
+import MessageUI
 
 //Mark :- struct for items
 struct PopularItem {
@@ -20,7 +21,7 @@ struct PopularItem {
 }
 
 
-class RestaurantDetailsController: UIViewController {
+class RestaurantDetailsController: UIViewController,MFMailComposeViewControllerDelegate {
     
     //Mark :- views
     @IBOutlet weak var bottomView: UIView!
@@ -44,6 +45,7 @@ class RestaurantDetailsController: UIViewController {
     @IBOutlet var tableview: UITableView!
     
     //Mark :- outlets
+    @IBOutlet var shareButton: UIButton!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var ordeerNowButton: UIButton!
     @IBOutlet var freeDeliveryLabel: UILabel!
@@ -85,6 +87,51 @@ class RestaurantDetailsController: UIViewController {
         nextViewController.orderPrice = price
         print(nextViewController.orderPrice)
         navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    
+    @IBAction func shareYourPost(_ sender: Any) {
+        
+            let actionSheetController = UIAlertController(title: "Please select Your Option", message: "", preferredStyle: .actionSheet)
+            
+            //otherbutton
+            let otherButton = UIAlertAction(title: "Share via Others", style: .default) { action -> Void in
+                print("Others")
+                let shareText = "Hello You are In Instagram App"
+                let vc = UIActivityViewController(activityItems: [shareText], applicationActivities: [])
+                self.present(vc, animated: true, completion: nil)
+            }
+            actionSheetController.addAction(otherButton)
+            
+            //cancelbutton
+            let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+                print("cancel")
+            }
+            actionSheetController.addAction(cancelButton)
+            
+            //emailbutton
+            let emailButton = UIAlertAction(title: "Share via Email", style: .default) { action -> Void in
+                print("Email")
+                if MFMailComposeViewController.canSendMail() {
+                    let mail = MFMailComposeViewController()
+                    mail.mailComposeDelegate = self
+                    mail.setToRecipients(["test@test.test"])
+                    mail.setSubject("Bla")
+                    mail.setMessageBody("<b>Blabla</b>", isHTML: true)
+                    self.present(mail, animated: true, completion: nil)
+                } else {
+                    print("Cannot send mail")
+                }
+            }
+            actionSheetController.addAction(emailButton)
+            
+            //messagebutton
+            let MessageButton = UIAlertAction(title: "Share via Messages", style: .default) { action -> Void in
+                print("Message")
+                UIApplication.shared.open(URL(string: "sms:")!, options: [:], completionHandler: nil)
+            }
+            actionSheetController.addAction(MessageButton)
+            self.present(actionSheetController, animated: true, completion: nil)
+        
     }
 }
 

@@ -106,12 +106,12 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            return 1
+            return 0
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,7 +138,7 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "priceCell", for: indexPath) as! PriceFilterCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             
             return cell
         }
@@ -158,7 +158,7 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            return 100
+            return 0
         }
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -177,7 +177,7 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            return "PRICE"
+            return ""
         }
     }   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

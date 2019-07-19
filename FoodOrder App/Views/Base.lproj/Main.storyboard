@@ -1110,6 +1110,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bzl-03-Op0">
                                                 <rect key="frame" x="305.5" y="14" width="22.5" height="23"/>
                                                 <state key="normal" image="share"/>
+                                                <connections>
+                                                    <action selector="shareYourPost:" destination="YRT-Mf-Oca" eventType="touchUpInside" id="l75-yH-l4w"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8O-z0-LcO">
                                                 <rect key="frame" x="10" y="14" width="40" height="30"/>
@@ -1591,12 +1594,13 @@
                         <outlet property="restName" destination="rsi-01-bz7" id="z2d-rq-Ntf"/>
                         <outlet property="restaurantAddress" destination="jGp-RZ-ssC" id="fr0-2A-kca"/>
                         <outlet property="scrollview" destination="ai2-Cx-LdB" id="fo7-vO-b43"/>
+                        <outlet property="shareButton" destination="Bzl-03-Op0" id="8Ob-tT-adA"/>
                         <outlet property="tableview" destination="Hs1-Xv-20B" id="J6T-6g-0au"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lud-pT-Fz1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6432.8000000000002" y="533.43328335832086"/>
+            <point key="canvasLocation" x="6503" y="532"/>
         </scene>
         <!--Featured Item Display-->
         <scene sceneID="Stg-yq-BNJ">

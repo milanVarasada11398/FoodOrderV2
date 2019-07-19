@@ -37,12 +37,12 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
          navigationController?.setNavigationBarHidden(true, animated: animated)
-        if(Auth.auth().currentUser?.uid != nil)
-        {
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-            navigationController?.pushViewController(nextViewController, animated: true)
-        }
+//        if(Auth.auth().currentUser?.uid != nil)
+//        {
+//            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+//            navigationController?.pushViewController(nextViewController, animated: true)
+//        }
     }
     
     //userLogin Button
