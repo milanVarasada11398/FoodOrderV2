@@ -10,7 +10,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import Firebase
 import FirebaseAuth
-
+import LocalAuthentication
 
 class CheckOutViewController: UIViewController,UITextFieldDelegate,PayPalPaymentDelegate {
   
@@ -22,6 +22,7 @@ class CheckOutViewController: UIViewController,UITextFieldDelegate,PayPalPayment
     
     var orderPrice:String = ""
 
+    @IBOutlet var PayUsingTouchID: UIButton!
     @IBOutlet weak var emailView: UIView!
     @IBOutlet weak var emailImageView: UIImageView!
     @IBOutlet weak var emailField: SkyFloatingLabelTextField!
@@ -50,59 +51,12 @@ class CheckOutViewController: UIViewController,UITextFieldDelegate,PayPalPayment
         }
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AddressField.placeholder = "Home Address"
-        AddressField.title = "Your Home Address"
-        AddressField.tintColor = UIColor.red
-        AddressField.textColor = darkGreyColor
-        AddressField.lineColor = lightGreyColor
-        AddressField.selectedTitleColor = overcastGreenColor
-        AddressField.selectedLineColor = UIColor.red
-        AddressField.lineHeight = 1.0 // bottom line height in points
-        AddressField.selectedLineHeight = 2.0
-         AddressField.errorColor = UIColor.red
-         addressView.layer.borderWidth = 2
-         addressView.layer.borderColor = UIColor.red.cgColor
-         AddressField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-        
-        emailField.placeholder = "Email"
-        emailField.title = "Your Email Address"
-        emailField.tintColor = UIColor.red
-        emailField.textColor = darkGreyColor
-        emailField.lineColor = lightGreyColor
-        emailField.selectedTitleColor = overcastGreenColor
-        emailField.selectedLineColor = UIColor.red
-        emailField.lineHeight = 1.0 // bottom line height in points
-        emailField.selectedLineHeight = 2.0
-        emailField.errorColor = UIColor.red
-        emailView.layer.borderWidth = 2
-        emailView.layer.borderColor = UIColor.red.cgColor
-        emailField.addTarget(self, action: #selector(textFieldDidChangeforEmail(_:)), for: .editingChanged)
-        
-        
-        emailView.layer.cornerRadius = 10
-        emailView.layer.masksToBounds = true
-        
-        addressView.layer.cornerRadius = 10
-        addressView.layer.masksToBounds = true
-        
-        paymentButton.layer.cornerRadius = 8
-        paymentButton.layer.masksToBounds = true
-        
-        
-        
-        //paypal
-        paypalconfig.acceptCreditCards = acceptCreditCards;
-        paypalconfig.merchantName = "Milan Patel Inc."
-        paypalconfig.merchantPrivacyPolicyURL = NSURL(string: "https://www.mmpatel.com/privacy.html") as URL?
-        paypalconfig.merchantUserAgreementURL = NSURL(string: "https://www.mmpatel.com/useragreement.html") as URL?
-        paypalconfig.languageOrLocale = NSLocale.preferredLanguages[0]
-        paypalconfig.payPalShippingAddressOption = .payPal;
-        
-        PayPalMobile.preconnect(withEnvironment: environment)
+        Initialization()
         
         
     }
@@ -231,7 +185,41 @@ class CheckOutViewController: UIViewController,UITextFieldDelegate,PayPalPayment
     }
     
 
-    
+    @IBAction func payUsingTouchID(_ sender: Any) {
+        let context : LAContext = LAContext()
+        if emailbool == false || addressbool == false
+        {
+            let alert = UIAlertController(title: "Payment Error", message: "Please enter Correct email and Home Address", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+        else
+        {
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        {
+            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "We want to login With Your Finger print", reply:{(wascorrect,error) in
+                if wascorrect
+                {
+                    DispatchQueue.main.async {
+                        Alertview.instance.delegate = self
+                        Alertview.instance.showAlert(title: "Your Order is Sucessfully.", message: "You can track the Delivery in the \"Orders\" Sction.", alertType: .Sucess)
+                    }
+                   
+                }
+                else
+                {
+                    print(error)
+                    print("incorrect")
+                }
+            })
+        }
+        else
+        {
+            //
+        }
+    }
+    }
 }
 
 extension CheckOutViewController : clickOnButton
@@ -248,4 +236,60 @@ extension CheckOutViewController : clickOnButton
     }
     
     
+}
+
+extension CheckOutViewController
+{
+    fileprivate func Initialization() {
+        AddressField.placeholder = "Home Address"
+        AddressField.title = "Your Home Address"
+        AddressField.tintColor = UIColor.red
+        AddressField.textColor = darkGreyColor
+        AddressField.lineColor = lightGreyColor
+        AddressField.selectedTitleColor = overcastGreenColor
+        AddressField.selectedLineColor = UIColor.red
+        AddressField.lineHeight = 1.0 // bottom line height in points
+        AddressField.selectedLineHeight = 2.0
+        AddressField.errorColor = UIColor.red
+        addressView.layer.borderWidth = 2
+        addressView.layer.borderColor = UIColor.red.cgColor
+        AddressField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        
+        emailField.placeholder = "Email"
+        emailField.title = "Your Email Address"
+        emailField.tintColor = UIColor.red
+        emailField.textColor = darkGreyColor
+        emailField.lineColor = lightGreyColor
+        emailField.selectedTitleColor = overcastGreenColor
+        emailField.selectedLineColor = UIColor.red
+        emailField.lineHeight = 1.0 // bottom line height in points
+        emailField.selectedLineHeight = 2.0
+        emailField.errorColor = UIColor.red
+        emailView.layer.borderWidth = 2
+        emailView.layer.borderColor = UIColor.red.cgColor
+        emailField.addTarget(self, action: #selector(textFieldDidChangeforEmail(_:)), for: .editingChanged)
+        
+        
+        emailView.layer.cornerRadius = 10
+        emailView.layer.masksToBounds = true
+        
+        addressView.layer.cornerRadius = 10
+        addressView.layer.masksToBounds = true
+        
+        paymentButton.layer.cornerRadius = 8
+        paymentButton.layer.masksToBounds = true
+        
+        
+        
+        //paypal
+        paypalconfig.acceptCreditCards = acceptCreditCards;
+        paypalconfig.merchantName = "Milan Patel Inc."
+        paypalconfig.merchantPrivacyPolicyURL = NSURL(string: "https://www.mmpatel.com/privacy.html") as URL?
+        paypalconfig.merchantUserAgreementURL = NSURL(string: "https://www.mmpatel.com/useragreement.html") as URL?
+        paypalconfig.languageOrLocale = NSLocale.preferredLanguages[0]
+        paypalconfig.payPalShippingAddressOption = .payPal;
+        
+        PayPalMobile.preconnect(withEnvironment: environment)
+    }
 }

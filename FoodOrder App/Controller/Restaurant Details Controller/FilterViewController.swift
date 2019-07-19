@@ -81,7 +81,10 @@ class FilterViewController: UIViewController {
         }
     }
 
- 
+    @IBAction func backButton(_ sender: Any) {
+        navigationController?.popViewController(animated: false)
+    }
+    
 }
 extension FilterViewController : clickOnButton
 {
@@ -106,12 +109,12 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            return 0
+            return 1
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,7 +141,7 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "priceCell", for: indexPath) as! PriceFilterCell
             
             return cell
         }
@@ -158,7 +161,7 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            return 0
+            return 80
         }
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -177,10 +180,13 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            return ""
+            return "PRICE"
         }
     }   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 1 || indexPath.section == 2
+        {
         let cell = tableView.cellForRow(at: indexPath) as! OtherFilerCell
         
         
@@ -199,11 +205,8 @@ extension FilterViewController : UITableViewDelegate,UITableViewDataSource
             filterarray.append(cell.NameLabel.text!)
             print(filterarray)
         }
-       
-        if indexPath.section == 3
-        {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
         }
+       
         
    tableview.deselectRow(at: indexPath, animated: true)
     }

@@ -70,8 +70,9 @@ class Alertview : UIView
             
             iconImage.image = UIImage(named: "alertCheckmark")
              doneButton.backgroundColor = Pinkcolor
+            doneButton.setTitle("Continue Shopping", for: .normal)
         case .Failure:
-            
+            doneButton.setTitle("Ok", for: .normal)
             iconImage.image = UIImage(named: "fail")
             doneButton.backgroundColor = Pinkcolor
         case .Warning:

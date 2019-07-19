@@ -33,6 +33,7 @@
 		E353020022DC8754004C1687 /* ProductSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E35301F622DC8716004C1687 /* ProductSans-Thin.ttf */; };
 		E353020122DC8756004C1687 /* ProductSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E35301FA22DC8717004C1687 /* ProductSans-ThinItalic.ttf */; };
 		E353020222DC8758004C1687 /* ProductSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E35301F522DC86F2004C1687 /* ProductSans-Black.ttf */; };
+		E35BDB8122E1D34700623B62 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35BDB8022E1D34700623B62 /* LocalAuthentication.framework */; };
 		E393468022DC45B8005DAE6A /* FeaturedItemDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E393467F22DC45B8005DAE6A /* FeaturedItemDisplay.swift */; };
 		E39346B322DC5E4B005DAE6A /* Product Sans Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E39346B122DC5D50005DAE6A /* Product Sans Bold.ttf */; };
 		E39346B422DC5E4D005DAE6A /* Product Sans Bold Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E39346B022DC5D4F005DAE6A /* Product Sans Bold Italic.ttf */; };
@@ -145,6 +146,7 @@
 		E35301F922DC8717004C1687 /* ProductSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProductSans-MediumItalic.ttf"; sourceTree = "<group>"; };
 		E35301FA22DC8717004C1687 /* ProductSans-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProductSans-ThinItalic.ttf"; sourceTree = "<group>"; };
 		E35301FB22DC8717004C1687 /* ProductSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProductSans-Light.ttf"; sourceTree = "<group>"; };
+		E35BDB8022E1D34700623B62 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		E393467F22DC45B8005DAE6A /* FeaturedItemDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedItemDisplay.swift; sourceTree = "<group>"; };
 		E393468222DC5D27005DAE6A /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
 		E393468322DC5D27005DAE6A /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E35BDB8122E1D34700623B62 /* LocalAuthentication.framework in Frameworks */,
 				F140C96D22DAF54F00B68E08 /* SafariServices.framework in Frameworks */,
 				F140C96B22DAF54400B68E08 /* SystemConfiguration.framework in Frameworks */,
 				F140C96922DAF53A00B68E08 /* MobileCoreServices.framework in Frameworks */,
@@ -262,6 +265,7 @@
 		9539F79293D281EB1376DD94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E35BDB8022E1D34700623B62 /* LocalAuthentication.framework */,
 				F140C96C22DAF54F00B68E08 /* SafariServices.framework */,
 				F140C96A22DAF54400B68E08 /* SystemConfiguration.framework */,
 				F140C96822DAF53A00B68E08 /* MobileCoreServices.framework */,

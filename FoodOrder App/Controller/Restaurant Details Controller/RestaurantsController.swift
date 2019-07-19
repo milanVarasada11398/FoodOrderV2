@@ -18,6 +18,7 @@ class RestaurantsController: UIViewController {
     let db = Firestore.firestore()
 
     //outlets
+    @IBOutlet var placeCount: UILabel!
     @IBOutlet var collectionview: UICollectionView!
     @IBOutlet var pageControl: UIPageControl!
     @IBOutlet var RestDisplayCollectionView: UICollectionView!
@@ -74,7 +75,7 @@ extension RestaurantsController:UICollectionViewDelegate,UICollectionViewDataSou
         }
         if collectionView == RestDisplayCollectionView
         {
-          
+            self.placeCount.text = "\(self.finalFilter.count) places"
             return finalFilter.count
         }
         else
@@ -399,7 +400,7 @@ extension RestaurantsController
                             
                             print(self.finalFilter.count)
                            
-                            
+                          
                             self.RestDisplayCollectionView.reloadData()
                             
                         }
